@@ -12,7 +12,7 @@ const TabItem = (props) => {
   );
 }
 
-const Tabs = () => {
+const Tabs = ({ translateY }) => {
   const tabItems = [
     { name: "person-add", text: "Indicar-amigos" },
     { name: "chat-bubble-outline", text: "Cobrar" },
@@ -21,11 +21,24 @@ const Tabs = () => {
     { name: "lock", text: "Bloquear Cartão" }];
 
   return (
-    <Container>
+    <Container style={{
+      transform: [{
+        translateY: translateY.interpolate({
+          inputRange: [0, 380],
+          outputRange: [0, 30],
+          extrapolate: 'clamp'
+        })
+      }],
+      opacity: translateY.interpolate({
+        inputRange: [0, 380],
+        outputRange: [1, 0.3],
+        extrapolate: 'clamp',
+      })
+    }}>
       <TabsContainer>
         {tabItems.map(({ name, text }, index) => <TabItem key={index} name={name} text={text} />)}
       </TabsContainer>
-    </Container>
+    </Container >
   );
 }
 
